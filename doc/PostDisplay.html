@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Display</title>
+</head>
+<body>
+    <h1>Let's make a POST request</h1>
+    <h3>Please give the parameters</h3>
+
+    <form method="post">
+        <input type="text" name="key1" id="key1">
+        <input type="text" name="value1" id="value1">
+        
+        <input type="text" name="key2" id="key2">
+        <input type="text" name="value2" id="value2">
+
+        <input type="text" name="key3" id="key3">
+        <input type="text" name="value3" id="value3">
+
+        <input type="submit" value="Submit" onclick="submit()">
+    </form>
+
+    <script>
+        function submit()
+        {
+            var url = "/PostDisplay.html";
+            var params = document.getElementById("key1").value + "=" + document.getElementById("value1").value + "&" + document.getElementById("key2").value + "=" + document.getElementById("value2").value + "&" + document.getElementById("key3").value + "=" + document.getElementById("value3").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            console.log(params);
+            xhr.send("test1=test2");
+        }
+    </script>
+
+</body>
+</html>

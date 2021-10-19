@@ -1,0 +1,19 @@
+<h1> Ceci est un test de HEAD </h1>
+
+    <button onclick="getHeader()">Cliquer pour tester ici </button>
+
+		<script>
+      function getHeader() {
+        var url = "/doc/TestHead.html";
+        var xhr = new XMLHttpRequest();
+        xhr.open("HEAD", url);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.getAllResponseHeaders());
+            }
+        };
+
+        xhr.send();
+    }
+		</script>

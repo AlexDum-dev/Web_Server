@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import Requete.*;
 /**
  * Example program from Chapter 1 Programming Spiders, Bots and Aggregators in
  * Java Copyright 2001 by Jeff Heaton
@@ -25,7 +25,6 @@ public class WebServer {
    */
   protected void start() {
     ServerSocket s;
-
     System.out.println("Webserver starting up on port 80");
     System.out.println("(press ctrl-c to exit)");
     try {
@@ -47,24 +46,51 @@ public class WebServer {
             remote.getInputStream()));
         PrintWriter out = new PrintWriter(remote.getOutputStream());
 
+        String url = in.readLine();
+        System.out.println("URL : "+url);
+        String[] headerSplited = url.split(" ");
+        String httpType = headerSplited[0];
+        System.out.println("Type de la requête http "+httpType);
+        String ressource = headerSplited[1];
+        System.out.println("Ressource : "+ressource);
+
         // read the data sent. We basically ignore it,
         // stop reading once a blank line is hit. This
         // blank line signals the end of the client HTTP
         // headers.
         String str = ".";
-        while (str != null && !str.equals(""))
+        while (str != null && !str.equals("")){
           str = in.readLine();
+          System.out.println(str);
+        }
+        if(httpType.equals("POST")){
+          while (true){
+            str = in.readLine();
+            System.out.println(str);
+          }
+        }
+ 
+                 
+        switch (httpType) {
 
-        // Send the response
-        // Send the headers
-        out.println("HTTP/1.0 200 OK");
-        out.println("Content-Type: text/html");
-        out.println("Server: Bot");
-        // this blank line signals the end of the headers
-        out.println("");
-        // Send the HTML page
-        out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");
-        out.flush();
+            case "GET":
+              System.out.println("Dans le case get");
+              Get get = new Get();
+              get.doGet(out,ressource);
+              break;
+
+            case "":
+              Post post = new Post();
+              post.doPost(out, ressource);
+              break;
+            case "HEAD":
+              Head.doMethod(in, out,ressource);
+            
+            default:
+              out.println("HTTP/1.0 400 Bad Request");
+              break;
+        }
+        
         remote.close();
       } catch (Exception e) {
         System.out.println("Error: " + e);
@@ -83,3 +109,4 @@ public class WebServer {
     ws.start();
   }
 }
+
