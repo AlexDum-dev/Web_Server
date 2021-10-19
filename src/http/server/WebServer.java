@@ -85,7 +85,7 @@ public class WebServer {
               break;
             case "HEAD":
               Head.doMethod(in, out,ressource);
-            
+              break;
             default:
               out.println("HTTP/1.0 400 Bad Request");
               break;

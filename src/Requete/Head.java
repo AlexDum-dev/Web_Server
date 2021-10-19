@@ -19,21 +19,26 @@ public class Head {
      // Send the HTML page
      BufferedReader buffReader;
      StringBuffer st = new StringBuffer();
+     int compteur = 0;
      try{
        buffReader = new BufferedReader(new FileReader(".."+ressource));
        String line;
        int c;
        while((c=buffReader.read())!= -1){
          st.append(c);
+         compteur++;
        }
        buffReader.close();
      } catch(IOException e){
          e.printStackTrace();
      }
      // Send the headers
-      out.println("HTTP/1.0 200 OK");
-      out.println("Content-Type: text/html");
-      out.println("Server: Bot");
-      out.println("Content-Length: "+ st.length());
+    
+    out.println("HTTP/1.0 200 OK");
+    out.println("Content-Type: text/html");
+    out.println("Server: Bot");
+    out.println("Content-Length: "+ compteur);
+    out.println("");
+    out.flush();
   }
 }
