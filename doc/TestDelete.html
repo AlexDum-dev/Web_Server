@@ -6,10 +6,11 @@
 	</head>
 
 	<body>
-		<button onclick="testDELETE()">Add</button>
+		<button onclick="testDELETE()">Delete the file</button>
 		<script>
 			function testDELETE(){
-				var url = "/doc/test.html";
+				//var url = "/doc/test.html";
+				var url = "/doc/TestHtmlADelete.html";
         		var xhr = new XMLHttpRequest();
           		xhr.open("DELETE", url);
           		xhr.onreadystatechange = function () {

@@ -28,7 +28,7 @@ public class WebServer {
    */
   protected void start() {
     ServerSocket s;
-    System.out.println("Webserver starting up on port 80");
+    System.out.println("Webserver starting up on port 3000");
     System.out.println("(press ctrl-c to exit)");
     try {
       // create the main server socket
@@ -56,21 +56,45 @@ public class WebServer {
         System.out.println("Type de la requête http "+httpType);
         String ressource = headerSplited[1];
         System.out.println("Ressource : "+ressource);
+        String extension = ressource.split("\\.")[1]; // \\. car just "." in regex means any character
+        System.out.println("Extension du fichier "+extension);
+        String body = new String();
 
         // read the data sent. We basically ignore it,
         // stop reading once a blank line is hit. This
         // blank line signals the end of the client HTTP
         // headers.
+        int contentLentgh = 0;
         String str = ".";
         while (str != null && !str.equals("")){
           str = in.readLine();
           System.out.println(str);
-        }
-        if(httpType.equals("POST")){
-          while (true){
-            str = in.readLine();
-            System.out.println(str);
+          if (str.startsWith("Content-Length"))
+          {
+            contentLentgh = Integer.parseInt(str.substring("Content-Length: ".length()));
+            System.out.println("Content Length : " + contentLentgh);
           }
+        }
+        
+        if(httpType.equals("POST")){
+          System.out.println("POST method detected");
+          StringBuilder res = new StringBuilder();
+          char c;
+          for (int i=0; i<contentLentgh; i++)
+          {
+            try {
+              c = (char) in.read();
+              res.append(c);
+            }
+            catch (Exception e)
+            {
+
+            }
+            
+          }
+          System.out.println(res);
+          body = res.toString();
+          
         }
  
                  
@@ -79,19 +103,22 @@ public class WebServer {
             case "GET":
               System.out.println("Dans le case get");
               Get get = new Get();
-              get.doGet(out,ressource);
+              get.doGet(remote,ressource,extension);
               break;
 
-            case "":
+            case "POST":
+              System.out.println("Doing the post...");
               Post post = new Post();
-              post.doPost(out, ressource);
+              post.doPost(out, body);
+              System.out.println("Response of post has been sent");
               break;
             case "HEAD":
-              Head.doMethod(in, out,ressource);
+              Head.doMethod(in, out,ressource,extension);
               break;
             case "DELETE":
-              Delete delete = new Delete();
-              delete.doDelete(ressource);
+              //Delete delete = new Delete();
+              //delete.doDelete(ressource);
+              doDelete.doMethod(headerSplited, in, out);
               break;
             default:
               out.println("HTTP/1.0 400 Bad Request");

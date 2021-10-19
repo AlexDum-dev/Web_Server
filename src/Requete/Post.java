@@ -9,11 +9,13 @@ public class Post {
 
     }
 
-    public void doPost(PrintWriter out, String ressource) throws IOException{
+    public void doPost(PrintWriter out, String body) throws IOException{
         
         
         out.println("HTTP/1.0 200 OK");
         out.println("Content-Type: text/html");
+        out.println("Server: Bot");
+        out.println("");
 
         out.println("<!doctype html>");
         out.println("<html lang=\"en\">");
@@ -31,7 +33,7 @@ public class Post {
         out.println("<th>Value</th>");
         out.println("</tr>");
 
-        String[] pairs = ressource.split("&");
+        String[] pairs = body.split("&");
         for (String pair : pairs)
         {
             out.println("<tr>"); 
@@ -50,8 +52,8 @@ public class Post {
         out.println("</body>");
         out.println("</html>");
 
+        out.flush();
 
     }
-
 
 }

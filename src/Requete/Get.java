@@ -1,8 +1,17 @@
 package Requete;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.net.Socket;
+
+import javax.imageio.ImageIO;
+
 import java.io.IOException;
 
 
@@ -12,30 +21,70 @@ public class Get {
 
     }
 
-    public void doGet(PrintWriter out, String ressource) throws IOException{
-        BufferedReader conversationInfos = null;
-        System.out.println(".."+ressource);
+    public void doGet(Socket s, String ressource, String extension) throws IOException{
+        PrintWriter out = new PrintWriter(s.getOutputStream());
+        BufferedOutputStream outBuffStream = new BufferedOutputStream(s.getOutputStream());
+        File file = null;
         try {
-            conversationInfos = new BufferedReader(new FileReader(".."+ressource));
+            file = new File(".."+ressource);
         } catch (Exception e) {
-            System.err.println("Erreur lors de l'ouverure du fichier");
+            System.out.println("Impossible to open file");
+            out.println("HTTP/1.0 404 Not Found");
+            return;
         }
+
+        int fileLength =(int) file.length();
         
-        String infoConversationLine;
-        String[] infos;
+        System.out.println(".."+ressource);       
 
         // Send the response
         // Send the headers
         out.println("HTTP/1.0 200 OK");
-        out.println("Content-Type: text/html");
-        out.println("Server: Bot");
-        // this blank line signals the end of the headers
-        out.println("");
+        out.println("Content-Length: "+ Integer.toString(fileLength));
+        switch (extension) {
+            case "html":
+                out.println("Content-Type: text/html"); 
+                break;
+            case "jpeg":
+                System.out.println("Cas d'un fichier jpeg");
+                out.println("Content-Type: image/jpeg");        
+                break;
 
-        while((infoConversationLine = conversationInfos.readLine()) != null){
-            out.println(infoConversationLine);
+            case "mp3":
+                
+        
+            default:
+                break;
         }
-
+                
+        out.println("Server: Bot");
+        out.println("");
         out.flush();
+
+        byte[] fileData = readData(file);
+        outBuffStream.write(fileData);
+        outBuffStream.flush();
     }
+
+    /**
+     * Read file by putting in bytes.
+     * this allows to make no difference between text/audio/
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    public byte[] readData(File file) throws IOException {
+        int lengthFile = (int) file.length();
+        FileInputStream dataStream = null;
+        byte[] dataArray = new byte[lengthFile];
+        try {
+            dataStream = new FileInputStream(file);
+            dataStream.read(dataArray);
+        } finally {
+            if (dataStream != null) dataStream.close();
+        }
+        System.out.println(dataArray);
+        return dataArray;
+    }
+
 }

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>Loading a picture</title>
+	</head>
+
+	<body>
+		<button onclick="load()">Load Image</button>
+        
+        <div id="result"></div>
+
+		<script>
+			function load(){
+                var img = document.createElement("img");
+                img.src = "http://localhost:3000/public/img/bakker.jpg";
+				//img.src = "http://localhost:3000/public/img/paysage.jpeg";
+                var src = document.getElementById("result");
+                src.appendChild(img);
+			
+			}
+		</script>
+
+	</body>
+
+</html>

@@ -11,7 +11,7 @@ import http.server.WebServer;
 
 public class Head {
 
-  public static void doMethod(BufferedReader in, PrintWriter out,String ressource){
+  public static void doMethod(BufferedReader in, PrintWriter out,String ressource,String extension){
       System.out.println("[Head] Ressource : "+ressource);
 
      // this blank line signals the end of the headers
@@ -35,7 +35,22 @@ public class Head {
      // Send the headers
     
     out.println("HTTP/1.0 200 OK");
-    out.println("Content-Type: text/html");
+    switch (extension) {
+      case "html":
+          out.println("Content-Type: text/html"); 
+          break;
+      case "jpeg":
+          System.out.println("Cas d'un fichier jpeg");
+          out.println("Content-Type: image/jpeg");        
+          break;
+
+      case "mp3":
+          
+  
+      default:
+          break;
+    } 
+    
     out.println("Server: Bot");
     out.println("Content-Length: "+ compteur);
     out.println("");
