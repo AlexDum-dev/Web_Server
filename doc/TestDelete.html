@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>Delete a file</title>
+	</head>
+
+	<body>
+		<button onclick="testDELETE()">Add</button>
+		<script>
+			function testDELETE(){
+				var url = "/doc/test.html";
+        		var xhr = new XMLHttpRequest();
+          		xhr.open("DELETE", url);
+          		xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4) {
+                console.log("Successfully deleted")
+              }
+          };
+
+          xhr.send();
+			}
+			
+		</script>
+
+	</body>
+
+</html>

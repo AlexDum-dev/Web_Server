@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import javax.crypto.spec.DESKeySpec;
+
 import Requete.*;
 /**
  * Example program from Chapter 1 Programming Spiders, Bots and Aggregators in
@@ -85,6 +88,10 @@ public class WebServer {
               break;
             case "HEAD":
               Head.doMethod(in, out,ressource);
+              break;
+            case "DELETE":
+              Delete delete = new Delete();
+              delete.doDelete(ressource);
               break;
             default:
               out.println("HTTP/1.0 400 Bad Request");
