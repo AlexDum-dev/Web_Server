@@ -7,8 +7,8 @@ import java.nio.*;
 import java.nio.file.Paths;
 import java.util.List;
 
-import Response.ErrorHttp;
 import http.server.WebServer;
+import Response.*;
 
 
 public class Head {

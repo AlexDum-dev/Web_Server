@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>Loading a picture</title>
+	</head>
+
+	<body>
+		<button onclick="load()">Load Sound</button>
+        
+        <div id="result"></div>
+
+		<script>
+			function load(){
+                var audio = document.createElement("audio");
+                audio.src = "http://localhost:3000/public/audio/RockDrums.mp3";
+				audio.type = 'audio/mpeg';
+				audio.controls = 'controls';
+                var src = document.getElementById("result");
+                src.appendChild(audio);
+			}
+		</script>
+
+	</body>
+
+</html>
