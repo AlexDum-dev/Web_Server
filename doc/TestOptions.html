@@ -1,0 +1,18 @@
+<h1> Ceci est un test de OPTIONS </h1>
+
+    <button onclick="getOptions()">Cliquer pour tester ici</button>
+
+		<script>
+      function getOptions() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("OPTIONS","/TestHtmlADelete.html");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.getAllResponseHeaders());
+            }
+        };
+
+        xhr.send();
+    }
+		</script>

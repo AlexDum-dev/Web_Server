@@ -120,6 +120,11 @@ public class WebServer {
               //delete.doDelete(ressource);
               doDelete.doMethod(headerSplited, in, out);
               break;
+            case "OPTIONS":
+              //Delete delete = new Delete();
+              //delete.doDelete(ressource);
+              doOptions.doMethod(out);
+              break;
             default:
               out.println("HTTP/1.0 400 Bad Request");
               break;
