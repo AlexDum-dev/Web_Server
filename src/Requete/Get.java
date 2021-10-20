@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -21,17 +22,21 @@ public class Get {
 
     }
 
-    public void doGet(Socket s, String ressource, String extension) throws IOException{
+    public void doGet(Socket s, String ressource, String extension) throws IOException {
         PrintWriter out = new PrintWriter(s.getOutputStream());
-        BufferedOutputStream outBuffStream = new BufferedOutputStream(s.getOutputStream());
-        File file = null;
+        BufferedOutputStream outBuffStream = new BufferedOutputStream(s.getOutputStream());;
+        FileReader testReader = null;
         try {
-            file = new File(".."+ressource);
-        } catch (Exception e) {
+            testReader = new FileReader(".."+ressource);
+        } catch (FileNotFoundException e) {
             System.out.println("Impossible to open file");
             out.println("HTTP/1.0 404 Not Found");
+            out.println("");
+            out.flush();
             return;
         }
+        testReader.close();
+        File file = new File(".."+ressource);
 
         int fileLength =(int) file.length();
         
@@ -60,10 +65,14 @@ public class Get {
         out.println("Server: Bot");
         out.println("");
         out.flush();
-
-        byte[] fileData = readData(file);
-        outBuffStream.write(fileData);
-        outBuffStream.flush();
+        try {
+            byte[] fileData = readData(file);
+            outBuffStream.write(fileData);
+            outBuffStream.flush();
+        } catch (Exception e) {
+            //TODO: handle exception
+        }
+        
     }
 
     /**

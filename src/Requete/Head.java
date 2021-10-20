@@ -6,6 +6,8 @@ import java.io.*;
 import java.nio.*;
 import java.nio.file.Paths;
 import java.util.List;
+
+import Response.ErrorHttp;
 import http.server.WebServer;
 
 
@@ -31,6 +33,13 @@ public class Head {
        buffReader.close();
      } catch(IOException e){
          e.printStackTrace();
+         ErrorHttp error = new ErrorHttp();
+         try {
+          error.send404(out);
+        } catch (IOException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
      }
      // Send the headers
     

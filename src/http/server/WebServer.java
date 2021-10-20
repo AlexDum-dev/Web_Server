@@ -11,6 +11,7 @@ import java.net.Socket;
 import javax.crypto.spec.DESKeySpec;
 
 import Requete.*;
+import Response.*;
 /**
  * Example program from Chapter 1 Programming Spiders, Bots and Aggregators in
  * Java Copyright 2001 by Jeff Heaton
@@ -126,7 +127,8 @@ public class WebServer {
               doOptions.doMethod(out);
               break;
             default:
-              out.println("HTTP/1.0 400 Bad Request");
+              ErrorHttp error = new ErrorHttp();
+              error.send500(out);
               break;
         }
         
