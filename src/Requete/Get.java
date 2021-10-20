@@ -59,8 +59,10 @@ public class Get {
                 System.out.println("Cas d'un fichier audio mp3");
                 out.println("Content-Type: audio/mpeg");        
                 break;
-                
-        
+            case "mp4":
+                System.out.println("Cas d'un fichier audio mp4");
+                out.println("Content-Type: video/mpeg");        
+                break;
             default:
                 break;
         }

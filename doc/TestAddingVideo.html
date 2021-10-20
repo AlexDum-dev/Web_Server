@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>Loading a picture</title>
+	</head>
+
+	<body>
+		<button onclick="load()">Load Video</button>
+        
+        <div id="result"></div>
+
+		<script>
+			function load(){
+                var video = document.createElement("video");
+                video.src = "http://localhost:3000/public/video/vipboard.mp4";
+				video.type = 'video/mpeg';
+				video.controls = 'controls';
+                var src = document.getElementById("result");
+                src.appendChild(video);
+			}
+		</script>
+
+	</body>
+
+</html>
