@@ -116,6 +116,7 @@ public class WebServer {
 
             case "GET":
               System.out.println("Dans le case get");
+              if (ressource.equals("/")) ressource = "index.html";
               Get get = new Get();
               get.doGet(remote,ressource,extension);
               break;
