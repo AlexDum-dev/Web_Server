@@ -24,7 +24,7 @@ public class Get {
 
     public void doGet(Socket s, String ressource, String extension) throws IOException {
         PrintWriter out = new PrintWriter(s.getOutputStream());
-        BufferedOutputStream outBuffStream = new BufferedOutputStream(s.getOutputStream());;
+        BufferedOutputStream outBuffStream = new BufferedOutputStream(s.getOutputStream());
         FileReader testReader = null;
         try {
             testReader = new FileReader(".."+ressource);
