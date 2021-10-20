@@ -11,14 +11,26 @@
     <h3>Please give the parameters</h3>
 
     <div>
+        <label for="key1">Key 1</label>
         <input type="text" name="key1" id="key1">
+        <label for="value1">Value 1</label>
         <input type="text" name="value1" id="value1">
+
+        <br><br>
         
+        <label for="key2">Key 2</label>
         <input type="text" name="key2" id="key2">
+        <label for="value2">Value 2</label>
         <input type="text" name="value2" id="value2">
 
+        <br><br>
+
+        <label for="key3">Key 3</label>
         <input type="text" name="key3" id="key3">
+        <label for="value3">Value 3</label>
         <input type="text" name="value3" id="value3">
+
+        <br><br>
 
         <input type="submit" value="Submit" onclick="submit()">
     </div>
@@ -29,6 +41,11 @@
         function submit()
         {
             var url = "/doc/PostDisplay.html";
+            if (document.getElementById("key1").value === "" || document.getElementById("key2").value === "" || document.getElementById("key3").value === "" || document.getElementById("value1").value === "" || document.getElementById("value2").value === "" || document.getElementById("value3").value === "")
+            {
+                alert("Please fill all the inputs");
+                return;
+            }
             var params = document.getElementById("key1").value + "=" + document.getElementById("value1").value + "&" + document.getElementById("key2").value + "=" + document.getElementById("value2").value + "&" + document.getElementById("key3").value + "=" + document.getElementById("value3").value;
             var xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
