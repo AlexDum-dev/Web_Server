@@ -54,11 +54,24 @@ public class WebServer {
         System.out.println("URL : "+url);
         String[] headerSplited = url.split(" ");
         String httpType = headerSplited[0];
-        System.out.println("Type de la requête http "+httpType);
+        System.out.println("Type de la requete http "+httpType);
         String ressource = headerSplited[1];
         System.out.println("Ressource : "+ressource);
-        String extension = ressource.split("\\.")[1]; // \\. car just "." in regex means any character
-        System.out.println("Extension du fichier "+extension);
+        String extension = null;
+        try {
+          extension = ressource.split("\\.")[1]; // \\. car just "." in regex means any character
+          System.out.println("Extension du fichier "+extension);
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+
+        }  
+
+
+
+
+
+        
         String body = new String();
 
         // read the data sent. We basically ignore it,
