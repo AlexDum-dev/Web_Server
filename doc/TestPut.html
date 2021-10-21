@@ -1,0 +1,20 @@
+<h1> Ceci est un test de PUT </h1>
+
+    <button onclick="getPut()">Cliquer pour tester ici PUT</button>
+
+		<script>
+      function getPut() {
+        var message = "SALUT MOSTAFA";
+        var url = "/doc/testFichierPutAjoute.html";
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", url);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.getAllResponseHeaders());
+            }
+        };
+
+        xhr.send(message);
+    }
+		</script>

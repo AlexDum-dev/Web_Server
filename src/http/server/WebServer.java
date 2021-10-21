@@ -121,14 +121,13 @@ public class WebServer {
           Head.doMethod(in, out, ressource, extension);
           break;
         case "DELETE":
-          // Delete delete = new Delete();
-          // delete.doDelete(ressource);
           doDelete.doMethod(headerSplited, in, out);
           break;
         case "OPTIONS":
-          // Delete delete = new Delete();
-          // delete.doDelete(ressource);
           doOptions.doMethod(out);
+          break;
+        case "PUT":
+          doPut.doMethod(headerSplited,in, out,extension,contentLentgh);
           break;
         default:
           ErrorHttp error = new ErrorHttp();
