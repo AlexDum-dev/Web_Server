@@ -1,11 +1,18 @@
 <h1> Ceci est un test de PUT </h1>
-
+<label for="value3">Nom du Fichier</label>
+  <input type="text" name="filename" id="filename">
+  <br>
+  <label for="value3">Message</label>
+  <input type="text" name="message" id="message">
+  <br>
     <button onclick="getPut()">Cliquer pour tester ici PUT</button>
 
 		<script>
       function getPut() {
-        var message = "SALUT MOSTAFA";
-        var url = "/doc/testFichierPutAjoute.html";
+        var message = document.getElementById("message").value;
+        var url = "/doc/"+document.getElementById("filename").value;
+        //var message = "SALUT MOSTAFA";
+        //var url = "/doc/testFichierPutAjoute.html";
         var xhr = new XMLHttpRequest();
         xhr.open("PUT", url);
         xhr.onreadystatechange = function () {
