@@ -71,14 +71,14 @@ public class WebServer {
         // stop reading once a blank line is hit. This
         // blank line signals the end of the client HTTP
         // headers.
-        int contentLentgh = 0;
+        int contentLength = 0;
         String str = ".";
         while (str != null && !str.equals("")) {
           str = in.readLine();
           System.out.println(str);
           if (str.startsWith("Content-Length")) {
-            contentLentgh = Integer.parseInt(str.substring("Content-Length: ".length()));
-            System.out.println("Content Length : " + contentLentgh);
+            contentLength = Integer.parseInt(str.substring("Content-Length: ".length()));
+            System.out.println("Content Length : " + contentLength);
           }
         }
 
@@ -86,7 +86,7 @@ public class WebServer {
           System.out.println("POST method detected");
           StringBuilder res = new StringBuilder();
           char c;
-          for (int i = 0; i < contentLentgh; i++) {
+          for (int i = 0; i < contentLength; i++) {
             try {
               c = (char) in.read();
               res.append(c);
@@ -127,7 +127,7 @@ public class WebServer {
           doOptions.doMethod(out);
           break;
         case "PUT":
-          doPut.doMethod(headerSplited,in, out,extension,contentLentgh);
+          doPut.doMethod(headerSplited,in, out,extension,contentLength);
           break;
         default:
           ErrorHttp error = new ErrorHttp();
