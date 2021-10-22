@@ -1,1 +1,7 @@
 # Web_Server
+
+## Lancement de l'application :
+  - cd src
+  - Compilation : `javac -d ../classes/ -cp ../classes/ ./http/server/*.java ./http/client/*.java ./Requete/*.java ./Response/*.java`
+  - Lancement du serveur : `cd ../classes` puis `java.server.WebServer`
+  - Lancement d'un ping : `cd ../classes` puis `java.client.WebPing` 
